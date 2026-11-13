@@ -375,12 +375,43 @@
       text-transform: uppercase;
     }
 
+    /* Телефон в шапке: между логотипом и меню, кликабельный на мобильных */
+    .header-phone {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      flex: 0 0 auto;
+      margin-left: auto;
+      padding: 8px 0;
+      color: rgba(244, 246, 239, 0.82);
+      font-size: 13.5px;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      white-space: nowrap;
+      transition: color 0.2s ease;
+    }
+
+    .header-phone svg {
+      width: 14px;
+      height: 14px;
+      flex: 0 0 auto;
+      color: var(--accent);
+      transition: transform 0.2s var(--ease);
+    }
+
+    .header-phone:hover { color: var(--accent); }
+    .header-phone:hover svg { transform: rotate(-8deg); }
+    .header-phone:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+
     .site-nav {
       display: flex;
       align-items: center;
       justify-content: flex-end;
       gap: 30px;
-      margin-left: auto;
     }
 
     .nav-list {
@@ -2416,6 +2447,16 @@
     .lead-card .btn { margin-top: 14px; min-height: 48px; font-size: 12.5px; }
     .form-note { margin-top: 9px; color: #687160; font-size: 9px; line-height: 1.5; text-align: center; }
 
+    /* Ловушка для спам-ботов: поле скрыто от людей */
+    .hp-field {
+      position: absolute !important;
+      left: -9999px !important;
+      width: 1px;
+      height: 1px;
+      opacity: 0;
+      pointer-events: none;
+    }
+
     .form-success { padding: 15px 4px 5px; text-align: center; }
     .form-success__icon { display: grid; place-items: center; width: 50px; height: 50px; margin: 0 auto 14px; border-radius: 50%; background: var(--accent); color: var(--accent-ink); }
     .form-success__icon svg { width: 24px; height: 24px; }
@@ -2542,10 +2583,27 @@
       .footer-main { grid-template-columns: 1.4fr 0.65fr 0.85fr 1fr; gap: 30px; }
     }
 
+    /* Узкий десктоп (981–1099 px): горизонтальное меню занимает всю ширину,
+       поэтому номер сворачивается в круглую кнопку с трубкой (tel: сохраняется). */
+    @media (min-width: 981px) and (max-width: 1099px) {
+      .header-inner { gap: 32px; }
+      .header-phone {
+        width: 34px;
+        height: 34px;
+        padding: 0;
+        justify-content: center;
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        border-radius: 50%;
+      }
+      .header-phone span { display: none; }
+      .header-phone svg { width: 16px; height: 16px; }
+    }
+
     @media (max-width: 980px) {
       :root { --header-height: 74px; }
       .section { padding: 88px 0; }
-      .header-inner { height: var(--header-height); }
+      .header-inner { height: var(--header-height); gap: 14px; }
+      .header-phone { font-size: 12.5px; padding: 13px 0; }
       .header-actions .btn { display: none; }
       .menu-toggle { display: inline-flex; }
       .site-nav {
@@ -2772,7 +2830,15 @@
       .toast { max-width: none; width: 100%; }
     }
 
+    @media (max-width: 360px) {
+      .header-inner { gap: 8px; }
+      .header-phone svg { display: none; }
+    }
+
     @media (max-width: 460px) {
+      .header-inner { gap: 10px; }
+      .header-phone { gap: 6px; font-size: 11.5px; }
+      .header-phone svg { width: 12px; height: 12px; }
       .brand__mark { width: 34px; height: 34px; }
       .brand__name { font-size: 14px; }
       .brand__caption { font-size: 7px; }
@@ -2909,6 +2975,11 @@
         </span>
       </a>
 
+      <a class="header-phone" href="tel:+79110207575" aria-label="Позвонить по номеру +7 (911) 020-75-75">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 3.6h2.6l1.5 3.9-1.9 1.3a12.6 12.6 0 0 0 6.5 6.5l1.3-1.9 3.9 1.5v2.6a2 2 0 0 1-2.2 2A16.9 16.9 0 0 1 4.5 5.8a2 2 0 0 1 2-2.2Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        <span>+7 (911) 020-75-75</span>
+      </a>
+
       <nav class="site-nav" id="siteNavigation" aria-label="Основная навигация">
         <ul class="nav-list">
           <li><a class="nav-link" href="#services">Услуги</a></li>
@@ -2950,7 +3021,7 @@
           <div class="hero__copy">
             <div class="eyebrow"><span class="eyebrow__dot"></span>GPS/ГЛОНАСС · телематика · контроль топлива</div>
             <h1 id="heroTitle">Контролируйте<br>транспорт.<br><span class="accent-text">Сокращайте расходы.</span></h1>
-            <p class="hero__lead">GPS/ГЛОНАСС-мониторинг и контроль топлива через ДУТ: видьте, где находится техника, сколько топлива в баке и как расходуется каждый литр.</p>
+            <p class="hero__lead">GPS/ГЛОНАСС-мониторинг и контроль топлива через ДУТ: вы&nbsp;будете знать, где находится техника, сколько топлива в баке и как расходуется каждый литр.</p>
             <div class="hero__actions">
               <a class="btn" href="#calculator">
                 Рассчитать стоимость
@@ -4035,9 +4106,10 @@
           <div class="lead-card">
             <div class="lead-card__head">
               <h3>Заявка на консультацию</h3>
-              <p>Заполните форму — мы подготовим текст обращения для отправки.</p>
+              <p>Заполните форму — заявка уйдёт нам на почту, и мы свяжемся с вами.</p>
             </div>
             <form class="lead-form" id="contactForm" novalidate>
+              <input class="hp-field" type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true">
               <div class="form-grid">
                 <div class="field">
                   <label for="contactName">Имя <span class="required">*</span></label>
@@ -4070,8 +4142,8 @@
                 <span>Согласен на обработку персональных данных и принимаю <button class="linklike" type="button" data-open-privacy>политику конфиденциальности</button>.</span>
               </label>
               <span class="field-error" id="contactConsentError"></span>
-              <button class="btn btn--dark btn--full" type="submit">Проверить и подготовить заявку <svg aria-hidden="true"><use href="#i-arrow"></use></svg></button>
-              <p class="form-note">Заявка не отправляется на сервер автоматически. После проверки вы сможете отправить её через почтовый клиент или скопировать текст.</p>
+              <button class="btn btn--dark btn--full" type="submit">Отправить заявку <svg aria-hidden="true"><use href="#i-arrow"></use></svg></button>
+              <p class="form-note">Заявка отправляется автоматически на 2156006@mail.ru. Нажимая кнопку, вы соглашаетесь на обработку персональных данных.</p>
             </form>
             <div class="form-success" id="contactSuccess" hidden>
               <div class="form-success__icon"><svg aria-hidden="true"><use href="#i-check"></use></svg></div>
@@ -4156,7 +4228,7 @@
       <button class="modal__close" type="button" data-close-modal aria-label="Закрыть окно"><svg aria-hidden="true"><use href="#i-close"></use></svg></button>
       <div class="modal__eyebrow">Заявка на консультацию</div>
       <h2 class="modal__title" id="requestModalTitle">Получить консультацию</h2>
-      <p class="modal__subtitle" id="requestModalSubtitle">Оставьте контакты — подготовим текст обращения. Автоматическая отправка на сервер не выполняется.</p>
+      <p class="modal__subtitle" id="requestModalSubtitle">Оставьте контакты — заявка уйдёт нам на почту, и мы свяжемся с вами.</p>
       <div class="request-summary" id="requestSummary" hidden>
         <div class="request-summary__title">Предварительный расчёт</div>
         <div class="request-summary__body" id="requestSummaryBody"></div>
@@ -4164,6 +4236,7 @@
       <div class="modal__form-wrap">
         <div class="lead-card">
           <form class="lead-form" id="requestForm" novalidate>
+            <input class="hp-field" type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true">
             <div class="form-grid">
               <div class="field">
                 <label for="requestName">Имя <span class="required">*</span></label>
@@ -4196,8 +4269,8 @@
               <span>Согласен на обработку персональных данных и принимаю <button class="linklike" type="button" data-open-privacy>политику конфиденциальности</button>.</span>
             </label>
             <span class="field-error" id="requestConsentError"></span>
-            <button class="btn btn--dark btn--full" type="submit">Проверить и подготовить заявку <svg aria-hidden="true"><use href="#i-arrow"></use></svg></button>
-            <p class="form-note">Заявка не отправляется на сервер автоматически. После проверки вы сможете отправить её через почтовый клиент или скопировать текст.</p>
+            <button class="btn btn--dark btn--full" type="submit">Отправить заявку <svg aria-hidden="true"><use href="#i-arrow"></use></svg></button>
+            <p class="form-note">Заявка отправляется автоматически на 2156006@mail.ru. Нажимая кнопку, вы соглашаетесь на обработку персональных данных.</p>
           </form>
           <div class="form-success" id="requestSuccess" hidden>
             <div class="form-success__icon"><svg aria-hidden="true"><use href="#i-check"></use></svg></div>
@@ -5016,7 +5089,7 @@
       const requestSummaryBody = $('#requestSummaryBody');
       const requestModalTitle = $('#requestModalTitle');
       const requestModalSubtitle = $('#requestModalSubtitle');
-      let requestContext = { topic: 'Консультация', title: 'Получить консультацию', subtitle: 'Оставьте контакты — подготовим текст обращения. Автоматическая отправка на сервер не выполняется.', summary: '' };
+      let requestContext = { topic: 'Консультация', title: 'Получить консультацию', subtitle: 'Оставьте контакты — заявка уйдёт нам на почту, и мы свяжемся с вами.', summary: '' };
       let lastFocusedElement = null;
       let openModalElement = null;
       const modalStack = [];
@@ -5073,7 +5146,7 @@
         if (requestSummary) requestSummary.hidden = !requestContext.summary;
         if (requestSummaryBody) requestSummaryBody.textContent = requestContext.summary || '';
         if (requestModalTitle) requestModalTitle.textContent = requestContext.title || 'Получить консультацию';
-        if (requestModalSubtitle) requestModalSubtitle.textContent = requestContext.subtitle || 'Оставьте контакты — подготовим текст обращения. Автоматическая отправка на сервер не выполняется.';
+        if (requestModalSubtitle) requestModalSubtitle.textContent = requestContext.subtitle || 'Оставьте контакты — заявка уйдёт нам на почту, и мы свяжемся с вами.';
         if (fleetNumber) {
           const fleetField = requestForm.elements.namedItem('fleet');
           if (fleetField && !fleetField.value) fleetField.placeholder = 'Например, ' + fleetNumber.value;
@@ -5084,7 +5157,7 @@
         requestContext = {
           topic: context.topic || 'Консультация',
           title: context.title || 'Получить консультацию',
-          subtitle: context.subtitle || 'Оставьте контакты — подготовим текст обращения. Автоматическая отправка на сервер не выполняется.',
+          subtitle: context.subtitle || 'Оставьте контакты — заявка уйдёт нам на почту, и мы свяжемся с вами.',
           summary: context.summary || ''
         };
         resetRequestForm();
@@ -5101,10 +5174,10 @@
             topic,
             title: isCalculator ? 'Коммерческое предложение' : (isGeneralConsultation ? 'Получить консультацию' : 'Обсудить задачу'),
             subtitle: isCalculator
-              ? 'Проверьте предварительный расчёт и оставьте контакты для подготовки коммерческого предложения.'
+              ? 'Проверьте предварительный расчёт и оставьте контакты — заявка уйдёт нам на почту.'
               : (isGeneralConsultation
-                ? 'Оставьте контакты для консультации. Автоматическая отправка на сервер не выполняется — вы сможете отправить подготовленное письмо самостоятельно.'
-                : 'Тема обращения: «' + topic + '». Опишите задачу в комментарии — подготовим текст обращения. Автоматическая отправка на сервер не выполняется.'),
+                ? 'Оставьте контакты для консультации — заявка уйдёт нам на почту, и мы свяжемся с вами.'
+                : 'Тема обращения: «' + topic + '». Опишите задачу в комментарии — заявка уйдёт нам на почту.'),
             summary: isCalculator ? currentCalcSummary : ''
           });
           return;
@@ -5286,6 +5359,38 @@
         });
       }
 
+      /* Formspree: бесплатный приём заявок без своего сервера.
+         FORM_ID берётся из кабинета formspree.io после создания формы. */
+      const FORMSPREE_FORM_ID = 'xrpqbror';
+      const LEAD_ENDPOINT = 'https://formspree.io/f/' + FORMSPREE_FORM_ID;
+
+      function sendLeadRequest(form, context) {
+        if (!FORMSPREE_FORM_ID) {
+          return Promise.resolve({ ok: false, result: { message: 'form id is not configured' } });
+        }
+        const data = new FormData(form);
+        const payload = {
+          _subject: 'Заявка с сайта — ' + (context.topic || 'Консультация'),
+          _replyto: normalize(data.get('email') || ''),
+          _gotcha: String(data.get('_honey') || ''),
+          'Имя': normalize(data.get('name') || ''),
+          'Телефон': normalize(data.get('phone') || ''),
+          'Email': normalize(data.get('email') || ''),
+          'Количество ТС': normalize(data.get('fleet') || '') || 'не указано',
+          'Комментарий': normalize(data.get('comment') || '') || 'не указан',
+          'Тема': context.topic || 'Консультация'
+        };
+        if (context.summary) payload['Предварительный расчёт'] = context.summary;
+        return fetch(LEAD_ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify(payload)
+        }).then((response) => response.json().catch(() => ({})).then((result) => ({
+          ok: response.ok && (result.ok === true || result.success === true),
+          result: result
+        })));
+      }
+
       function initLeadForm(form) {
         if (!form) return;
         const isRequest = form.id === 'requestForm';
@@ -5305,16 +5410,47 @@
           const prepared = buildRequestMessage(form, context);
           formMessages.set(form, prepared);
           if (mailtoLink) mailtoLink.href = prepared.mailto;
-          form.hidden = true;
-          if (isRequest && requestSummary) requestSummary.hidden = true;
-          if (success) {
-            success.hidden = false;
-            const heading = success.querySelector('h3');
-            if (heading) heading.textContent = 'Заявка подготовлена';
-            const firstLink = success.querySelector('[data-mailto], a.btn');
-            if (firstLink) firstLink.focus({ preventScroll: true });
+
+          const submitButton = form.querySelector('button[type="submit"]');
+          const submitLabel = submitButton ? submitButton.innerHTML : '';
+          if (submitButton) {
+            submitButton.disabled = true;
+            submitButton.textContent = 'Отправляем…';
           }
-          showToast('Заявка подготовлена. Отправьте её через почтовый клиент или скопируйте текст.');
+
+          const finish = (sent) => {
+            if (submitButton) {
+              submitButton.disabled = false;
+              submitButton.innerHTML = submitLabel;
+            }
+            form.hidden = true;
+            if (isRequest && requestSummary) requestSummary.hidden = true;
+            if (success) {
+              success.hidden = false;
+              const heading = success.querySelector('h3');
+              const message = success.querySelector('p');
+              const actions = success.querySelector('.form-success__actions');
+              const emailLine = success.querySelector('.form-success__email');
+              if (heading) heading.textContent = sent ? 'Заявка отправлена' : 'Заявка подготовлена';
+              if (message) {
+                message.textContent = sent
+                  ? 'Спасибо! Заявка пришла нам на почту, мы свяжемся с вами в рабочее время.'
+                  : 'Не удалось отправить заявку автоматически. Отправьте её через почтовый клиент или скопируйте текст.';
+              }
+              if (actions) actions.hidden = sent;
+              if (emailLine) emailLine.hidden = sent;
+              const focusTarget = success.querySelector('a.btn, button');
+              if (focusTarget) focusTarget.focus({ preventScroll: true });
+            }
+            showToast(
+              sent ? 'Заявка отправлена. Мы скоро свяжемся с вами.' : 'Автоотправка не удалась — отправьте заявку через почтовый клиент.',
+              sent ? 'success' : 'warning'
+            );
+          };
+
+          sendLeadRequest(form, context)
+            .then((res) => finish(res.ok))
+            .catch(() => finish(false));
         });
 
         if (copyButton) {
